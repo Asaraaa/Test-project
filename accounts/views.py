@@ -15,7 +15,7 @@ class UserRegistrationForm(forms.ModelForm):
 
 # Customizing the User login form to add 'form-control' class to fields
 class UserLoginForm(AuthenticationForm):
-    def __init__(self, *args, kwargs):
+    def init(self, *args, kwargs):
         super(UserLoginForm, self).__init__(*args, kwargs)
         self.fields['username'].widget.attrs.update({'class': 'form-control'})
         self.fields['password'].widget.attrs.update({'class': 'form-control'})
@@ -54,4 +54,4 @@ def user_login(request):
 
 # Home view
 def home_view(request):
-    return render(request, 'home.html')
+    return render(request, 'registration/home.html')
