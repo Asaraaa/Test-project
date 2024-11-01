@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 # User registration form
 class UserRegistrationForm(forms.ModelForm):
@@ -55,3 +56,7 @@ def user_login(request):
 # Home view
 def home_view(request):
     return render(request, 'registration/home.html')
+
+@login_required
+def profile_view(request):
+    return render(request, 'registration/profile.html', {'user': request.user})
