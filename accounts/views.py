@@ -5,6 +5,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserChangeForm 
+from django.contrib.auth import update_session_auth_hash
+
 
 # User registration form
 class UserRegistrationForm(forms.ModelForm):
@@ -60,3 +63,17 @@ def home_view(request):
 @login_required
 def profile_view(request):
     return render(request, 'registration/profile.html', {'user': request.user})
+
+@login_required  
+def edit_profile(request):
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()  # Saving the form 
+            messages.success(request, 'Profile updated successfully!')
+            update_session_auth_hash(request, form.instance)  # Correctly using request here
+            return redirect('profile')  # Redirect to the profile page after successful update
+    else:
+        form = UserChangeForm(instance=request.user)  # Populating the form with current user's info
+
+    return render(request, 'registration/edit_profile.html', {'form': form})

@@ -9,4 +9,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),  # Including URLs from the accounts app
     path('products/', include('products.urls')),  # Including URLs from the products app
 ]
+
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

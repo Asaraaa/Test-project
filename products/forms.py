@@ -1,4 +1,5 @@
 from django import forms
+from .models import Review
 
 class ProductSearchForm(forms.Form):
     query = forms.CharField(label='Search', max_length=255, required=False)
@@ -11,3 +12,7 @@ class ProductSearchForm(forms.Form):
         ('art', 'Art'),
     ], required=False)
 
+class ReviewForm(forms.ModelForm):
+    class Meta:
+        model = Review
+        fields = ['rating', 'comment']  

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Profile</title>
+  </head>
+  <body>
+    <h1>Edit Profile</h1>
+    <form method="POST">
+      {% csrf_token %} {{ form.as_p }} {% if form.errors %}
+      <ul>
+        {% for field in form %} {% for error in field.errors %}
+        <li>{{ error }}</li>
+        {% endfor %} {% endfor %}
+      </ul>
+      {% endif %}
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </body>
+</html>
